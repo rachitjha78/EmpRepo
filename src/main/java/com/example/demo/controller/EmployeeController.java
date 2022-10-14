@@ -58,6 +58,17 @@ public class EmployeeController {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
+	
+	@DeleteMapping("/employees/{id}")
+	public ResponseEntity<String> removeEmployee(@PathVariable("id") long id) {
+		try {
+			employeeRepository.deleteById(id);
+					
+			return new ResponseEntity<>("Employee deleted", HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
 
 }
 

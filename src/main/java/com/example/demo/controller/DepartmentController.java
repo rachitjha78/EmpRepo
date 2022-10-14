@@ -59,7 +59,7 @@ public class DepartmentController {
 	}
 	
 	@DeleteMapping("/departments/{id}")
-	public ResponseEntity<String> removeDepartment(@RequestBody long id) {
+	public ResponseEntity<String> removeDepartment(@PathVariable("id") long id) {
 		try {
 			departmentRepository.deleteById(id);
 					
