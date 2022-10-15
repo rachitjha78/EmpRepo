@@ -69,6 +69,30 @@ public class EmployeeController {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
+	
+	
+	@PutMapping("/employees/{id}")
+    public ResponseEntity<Employee> updateEmployee(@PathVariable long id,@RequestBody Employee employee) {
+        
+	 try {
+	    Employee updateEmployee = employeeRepository.findById(id).get();
+          
+        updateEmployee.setFirst_name(employee.getFirst_name());
+        updateEmployee.setLast_name(employee.getLast_name());
+        updateEmployee.setEmail(employee.getEmail());
+        updateEmployee.setPhone_number(employee.getPhone_number());
+        updateEmployee.setHire_date(employee.getHire_date());
+        updateEmployee.setSalary(employee.getSalary());
+        updateEmployee.setManager_id(employee.getManager_id());
+        employeeRepository.save(updateEmployee);
+
+        return ResponseEntity.ok(updateEmployee);
+	 }
+        
+        catch (Exception e) {
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	 }
 
 }
 

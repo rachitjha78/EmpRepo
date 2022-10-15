@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+
 import com.example.demo.model.Department;
 import com.example.demo.repository.DepartmentRepository;
 
@@ -68,5 +69,28 @@ public class DepartmentController {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
+	
+	 @PutMapping("/departments/{id}")
+	    public ResponseEntity<Department> updateDepartment(@PathVariable long id,@RequestBody Department department) {
+	        
+		 try {
+		    Department updateDepartment = departmentRepository.findById(id).get();
+	           //    .orElseThrow(() -> new ResourceNotFoundException("Department not exist with id: " + id));
 
-}
+	        updateDepartment.setDepartment_name(department.getDepartment_name());
+	        updateDepartment.setManager_id(department.getManager_id());
+	        departmentRepository.save(updateDepartment);
+
+	        return ResponseEntity.ok(updateDepartment);
+		 }
+	        
+	        catch (Exception e) {
+				return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+			}
+		 }
+	      
+
+	        
+	    }
+
+
